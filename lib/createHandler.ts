@@ -48,7 +48,13 @@ export function createHandler(
     }
 
     req.params = getParams(keys, match);
-    logger().recv(`(app) -> ${req.method} ${req.url}`);
+    logger().recv(
+      `(app) -> ${req.method} ${req.url}\n` +
+        `\tUser agent: ${req.headers["user-agent"] || "unknown"}\n` +
+        `\tIP address: ${req.socket.remoteAddress || "unknown"}\n` +
+        `\tReferer: ${req.headers["referer"] || "unknown"}\n` +
+        `\tOrigin: ${req.headers["origin"] || "unknown"}`
+    );
 
     return methodFn.call(instance, req, res);
   };
