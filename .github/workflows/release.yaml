@@ -2,8 +2,7 @@ name: Release
 on:
   push:
     branches:
-      - master
-      - beta
+      - main
 jobs:
   release:
     name: Release
