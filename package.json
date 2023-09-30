@@ -1,7 +1,7 @@
 {
   "name": "@solariusnl/next-api-decorators",
   "description": "Fork of @storyofams/next-api-decorators with some extra functionality for Solarius projects",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": {
     "name": "Story of AMS",
     "url": "https://storyofams.com",
