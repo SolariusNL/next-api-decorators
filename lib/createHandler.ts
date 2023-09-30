@@ -1,9 +1,10 @@
-import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
-import { findRoute } from './internals/findRoute';
-import { getCallerInfo } from './internals/getCallerInfo';
-import { getParams } from './internals/getParams';
-import { notFound } from './internals/notFound';
-import { parseRequestUrl } from './internals/parseRequestUrl';
+import type { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
+import { findRoute } from "./internals/findRoute";
+import { getCallerInfo } from "./internals/getCallerInfo";
+import { getParams } from "./internals/getParams";
+import { notFound } from "./internals/notFound";
+import { parseRequestUrl } from "./internals/parseRequestUrl";
+import logger from "./logger";
 
 /**
  * Prepares a router for the given class.
@@ -24,7 +25,9 @@ import { parseRequestUrl } from './internals/parseRequestUrl';
  * export default createHandler(Events);
  * ```
  */
-export function createHandler(cls: new (...args: any[]) => any): NextApiHandler {
+export function createHandler(
+  cls: new (...args: any[]) => any
+): NextApiHandler {
   const instance = new cls();
   const [directory, fileName] = getCallerInfo();
 
@@ -45,6 +48,7 @@ export function createHandler(cls: new (...args: any[]) => any): NextApiHandler 
     }
 
     req.params = getParams(keys, match);
+    logger().recv(`(app) -> ${req.method} ${req.url}`);
 
     return methodFn.call(instance, req, res);
   };
